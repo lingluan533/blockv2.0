@@ -1,5 +1,7 @@
 package dataStruct
-
+type BlockHeaders struct{
+	headers []BlockHeader
+}
 type BlockHeader struct {
 	CreateTimestamp string `protobuf:"bytes,1,opt,name=CreateTimestamp,proto3" json:"CreateTimestamp,omitempty"` //创建时间戳
 	KeyId           string `protobuf:"bytes,2,opt,name=keyId,proto3" json:"keyId,omitempty"`

@@ -4,27 +4,27 @@ package rpc;
 option go_package="./;rpc";
 
 //创世块
-message GenesisBlock{
-	string CreateTimestamp = 1;  //创建时间戳
-	string  KeyId =2; //key值
-	int64 Height = 3; //创世区块就是区块高位为1
-	string GenesisBlockHash = 4; //创世区块哈希值
-	int32 DataCounts = 5; //数据交易量
-	int64 DataSize =6; //总数据量大小
-	int32 ChildBlockCount = 7; //子块数量
-	string UpdateTimestamp = 8; //更新时间戳
-	int64 cumulativeBlock=9; //累计区块总数
-	string Version = 10; //创世区块版本号
-	string BlockChainType =11 ; //目前主要三条链标示不同的链
-	string LedgerType =12 ; //目前主要三条链标示不同的链
-	string  CreateChainTimestamp  =13; //链创建时间
-	int64  CumulativeValue =14; // 累计价值量
-	int64  CumulativeNode=15; //      累计参与终端数
-	int64  CumulativeUser=16; //   累计用户数
-	int32 GroupMasterNodeCount =17; //集群master节点数量
-	int32 GroupSlaveNodeCount =18; //集群slave节点数量
-	string date=19; //生成时间
-}
+//message GenesisBlock{
+//	string CreateTimestamp = 1;  //创建时间戳
+//	string  KeyId =2; //key值
+//	int64 Height = 3; //创世区块就是区块高位为1
+//	string GenesisBlockHash = 4; //创世区块哈希值
+//	int32 DataCounts = 5; //数据交易量
+//	int64 DataSize =6; //总数据量大小
+//	int32 ChildBlockCount = 7; //子块数量
+//	string UpdateTimestamp = 8; //更新时间戳
+//	int64 cumulativeBlock=9; //累计区块总数
+//	string Version = 10; //创世区块版本号
+//	string BlockChainType =11 ; //目前主要三条链标示不同的链
+//	string LedgerType =12 ; //目前主要三条链标示不同的链
+//	string  CreateChainTimestamp  =13; //链创建时间
+//	int64  CumulativeValue =14; // 累计价值量
+//	int64  CumulativeNode=15; //      累计参与终端数
+//	int64  CumulativeUser=16; //   累计用户数
+//	int32 GroupMasterNodeCount =17; //集群master节点数量
+//	int32 GroupSlaveNodeCount =18; //集群slave节点数量
+//	string date=19; //生成时间
+//}
 //存证数据
 message DataReceipt {
     string CreateTimestamp = 1;
@@ -87,88 +87,55 @@ message Transaction {
       BlockHeader Header=1;
       repeated DataReceipt DataReceipts =2;//元数据
  }
- message TenMinuteTxBlock{
-     string CreateTimestamp  =1;//创建时间戳
-     string keyId =2;          //当前区块的key值
-     string PreBlockHash =3; //前一个hash区块hash值
-     string BlockHash =4; //前一个hash区块hash值
-     int64 BlockHeight = 5;  //区块高度
-     string BlockType = 6;   //区块类型
-     string LedgerType = 7;  //账本类型
-     string date=8; //创建时间
-     repeated MinuteTxBlock Blocks  =9;
- }
- message DailyTxBlock{
-     string CreateTimestamp  =1;//创建时间戳
-     string keyId =2;          //当前区块的key值
-     string PreBlockHash =3; //前一个hash区块hash值
-     string BlockHash =4; //前一个hash区块hash值
-     int64 BlockHeight = 5;  //区块高度
-     string BlockType = 6;   //区块类型
-     string LedgerType = 7;  //账本类型
-     string date=8;
-     repeated TenMinuteTxBlock Blocks  =9;
- }
- message TenMinuteDataBlock{
-     string CreateTimestamp  =1;//创建时间戳
-     string keyId =2;          //当前区块的key值
-     string PreBlockHash =3; //前一个hash区块hash值
-     string BlockHash =4; //前一个hash区块hash值
-     int64 BlockHeight = 5;  //区块高度
-     string BlockType = 6;   //区块类型
-     string LedgerType = 7;  //账本类型
-       string date=8;
-     repeated MinuteDataBlock Blocks  =9;
- }
- message DailyDataBlock{
-     string CreateTimestamp  =1;//创建时间戳
-     string keyId =2;          //当前区块的key值
-     string PreBlockHash =3; //前一个hash区块hash值
-     string BlockHash =4; //前一个hash区块hash值
-     int64 BlockHeight = 5;  //区块高度
-     string BlockType = 6;   //区块类型
-     string LedgerType = 7;  //账本类型
-       string date=8;
-     repeated TenMinuteDataBlock Blocks  =9;
- }
+// message TenMinuteTxBlock{
+//     string CreateTimestamp  =1;//创建时间戳
+//     string keyId =2;          //当前区块的key值
+//     string PreBlockHash =3; //前一个hash区块hash值
+//     string BlockHash =4; //前一个hash区块hash值
+//     int64 BlockHeight = 5;  //区块高度
+//     string BlockType = 6;   //区块类型
+//     string LedgerType = 7;  //账本类型
+//     string date=8; //创建时间
+//     repeated MinuteTxBlock Blocks  =9;
+// }
+// message DailyTxBlock{
+//     string CreateTimestamp  =1;//创建时间戳
+//     string keyId =2;          //当前区块的key值
+//     string PreBlockHash =3; //前一个hash区块hash值
+//     string BlockHash =4; //前一个hash区块hash值
+//     int64 BlockHeight = 5;  //区块高度
+//     string BlockType = 6;   //区块类型
+//     string LedgerType = 7;  //账本类型
+//     string date=8;
+//     repeated TenMinuteTxBlock Blocks  =9;
+// }
+// message TenMinuteDataBlock{
+//     string CreateTimestamp  =1;//创建时间戳
+//     string keyId =2;          //当前区块的key值
+//     string PreBlockHash =3; //前一个hash区块hash值
+//     string BlockHash =4; //前一个hash区块hash值
+//     int64 BlockHeight = 5;  //区块高度
+//     string BlockType = 6;   //区块类型
+//     string LedgerType = 7;  //账本类型
+//       string date=8;
+//     repeated MinuteDataBlock Blocks  =9;
+// }
+// message DailyDataBlock{
+//     string CreateTimestamp  =1;//创建时间戳
+//     string keyId =2;          //当前区块的key值
+//     string PreBlockHash =3; //前一个hash区块hash值
+//     string BlockHash =4; //前一个hash区块hash值
+//     int64 BlockHeight = 5;  //区块高度
+//     string BlockType = 6;   //区块类型
+//     string LedgerType = 7;  //账本类型
+//       string date=8;
+//     repeated TenMinuteDataBlock Blocks  =9;
+// }
  message Response {
     int32 errCode = 1; //错误码
     string errMsg = 2; //错误信息
 }
 
-//向TDengine 传送数据接口
-//commitGenesisBlock(string ) response
-service AccessLedgerService {
-    rpc AddGenesisBlock(GenesisBlock) returns (Response) {}
-    rpc AddMinuteBlock(MinuteTxBlock) returns (Response) {}
-    rpc AddTenMinuteBlock(TenMinuteTxBlock) returns(Response){}
-    rpc AddDailyBlock(DailyTxBlock) returns(Response){}
- }
- service NodeLedgerService{
-     rpc AddGenesisBlock(GenesisBlock) returns (Response) {}
-     rpc AddMinuteBlock(MinuteTxBlock) returns (Response) {}
-     rpc AddTenMinuteBlock(TenMinuteTxBlock) returns(Response){}
-     rpc AddDailyBlock(DailyTxBlock) returns(Response){}
- }
- service SensorLedgerService{
-     rpc AddGenesisBlock(GenesisBlock) returns (Response) {}
-     rpc AddMinuteBlock(MinuteTxBlock) returns (Response) {}
-     rpc AddTenMinuteBlock(TenMinuteTxBlock) returns(Response){}
-     rpc AddDailyBlock(DailyTxBlock) returns(Response){}
- }
- ///存证数据
- service UserLedgerService{
-     rpc AddGenesisBlock(GenesisBlock) returns (Response) {}
-     rpc AddMinuteBlock(MinuteDataBlock) returns (Response) {}
-     rpc AddTenMinuteBlock(TenMinuteDataBlock) returns(Response){}
-     rpc AddDailyBlock(DailyDataBlock) returns(Response){}
- }
- service VideoLedgerService{
-     rpc AddGenesisBlock(GenesisBlock) returns (Response) {}
-     rpc AddMinuteBlock(MinuteDataBlock) returns (Response) {}
-     rpc AddTenMinuteBlock(TenMinuteDataBlock) returns(Response){}
-     rpc AddDailyBlock(DailyDataBlock) returns(Response){}
- }
 
  //////////////////////查询数据接口///////////////////////
 //主要四类数据的获取和返回
@@ -241,17 +208,17 @@ message RequestGenesisBlock {
     string date=3;
     string hash=4;
 }
-message ResponseGenesisBlock{
-    int32 errCode = 1; //错误码
-    string errMsg = 2; //错误信息
-    GenesisBlock genesisBlock=4;//数据
-}
+//message ResponseGenesisBlock{
+//    int32 errCode = 1; //错误码
+//    string errMsg = 2; //错误信息
+//    GenesisBlock genesisBlock=4;//数据
+//}
 service QueryService{
    //查询所有的存证记录
    rpc queryAllReceipt(RequestAllDataReceipts) returns(ResponseAllDataReceipts){}
    rpc queryBlockBatch(RequestDataBatch) returns (ResponseDataBatchBlock) {}
    rpc queryBlock(RequestBlock) returns(ResponseBlock){}
-   rpc queryGenesisBlock(RequestGenesisBlock) returns(ResponseGenesisBlock){}
+  // rpc queryGenesisBlock(RequestGenesisBlock) returns(ResponseGenesisBlock){}
    rpc queryTx(RequestTx) returns (ResponseTx) {}
    rpc queryDataReceipt(RequestDataReceipt) returns(ResponseDataReceipt){}
 }
@@ -260,8 +227,7 @@ service QueryService{
 //接收redis传过来的数据  五类账本
 //node_credible video sensor user_behaviour service_access
 service ToUpper {
-	rpc Upper(UpperRequest) returns (UpperReply) {}//测试接口
-
+	  rpc Upper(UpperRequest) returns (UpperReply) {}//测试接口
     rpc NodeCredible(NodeCredibleData) returns (Response) {}//存证
     rpc Video(VideoData) returns (Response) {}//存证
     rpc Sensor(SensorData) returns (Response) {}//存证

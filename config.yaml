@@ -141,7 +141,7 @@ block:
     # 数据在数据库中的存活时间
     keep: 365
     driver: "taosSql"
-    db_name: "testdb"
+    db_name: "scope"
     table_keep: 365
     table_keepday: 30
   # 区块文件配置项

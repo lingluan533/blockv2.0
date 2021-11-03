@@ -5,9 +5,22 @@ import (
 	"fmt"
 	logger "github.com/sirupsen/logrus"
 	"os"
+	"strconv"
+	"strings"
 	"time"
 )
-
+func GetIndexMinInt() int {
+	timeFormatString := time.Now().Format("2006-01-02 15:04:05")
+	//var naosecond = time.Now().Nanosecond()/1e6
+	dayTimeArray := strings.Split(timeFormatString, " ")
+	minTimeArray := strings.Split(dayTimeArray[1], ":")
+	hourInt, _ := strconv.Atoi(minTimeArray[0])
+	minInt, _ := strconv.Atoi(minTimeArray[1])
+	indexMinInt := hourInt*60 + minInt
+	//indexMinString := strconv.Itoa(indexMinInt)
+	//timeCorrect:=fmt.Sprintf("%s.%d",timeFormatString,naosecond)
+	return indexMinInt
+}
 /**
 检查error并抛出panic异常
 */
@@ -25,14 +38,7 @@ func ParseDate(timeStamp string) string{
 	date:=t.Format("2006-01-02")
 	return date
 }
-func ParseDate1(timeStamp string) string{
-	t,err:=time.Parse("2006-01-02 15:04:05",timeStamp)
-	if err!=nil{
-		panic(err)
-	}
-	date:=t.Format("2006_01_02")
-	return date
-}
+
 /**
 将实例转换为string类型的字符串
 */

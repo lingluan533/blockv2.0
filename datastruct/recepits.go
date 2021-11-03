@@ -5,7 +5,7 @@ type MinuteDataBlock struct {
 	DataReceipts []*DataReceipt `protobuf:"bytes,2,rep,name=DataReceipts,proto3" json:"DataReceipts,omitempty"` //元数据
 }
 type DataReceipt struct{
-	CreateTimeStamp string `json:"timeStamp" validate:"required"`
+	CreateTimeStamp string `json:"CreateTimestamp" validate:"required"`
 	EntityId  string `json:"entityId"`
 	KeyId               string   `json:"keyId" validate:"required"`
 	ReceiptValue        float64  `json:"receiptValue"`
@@ -19,8 +19,10 @@ type DataReceipt struct{
 	FileHash            string   `json:"fileHash"`
 	Uri                 string   `json:"uri"`
 	ParentKeyId         string   `json:"parentKeyId"`
-	AttachmentFileUris  string `json:"attachmentFileUris"`
+	AttachmentFileUris  []string `json:"attachmentFileUris"`
 	AttachmentTotalHash string   `json:"attachmentTotalHash"`
+
+
 }
 type MockDataReceipt struct {
 	CreateTimestamp     string   `protobuf:"bytes,1,opt,name=CreateTimestamp,proto3" json:"CreateTimestamp,omitempty"`
@@ -39,6 +41,5 @@ type MockDataReceipt struct {
 	ParentKeyId         string   `protobuf:"bytes,14,opt,name=ParentKeyId,proto3" json:"ParentKeyId,omitempty"`
 	AttachmentFileUris  []string `protobuf:"bytes,15,rep,name=AttachmentFileUris,proto3" json:"AttachmentFileUris,omitempty"`
 	AttachmentTotalHash string   `protobuf:"bytes,16,opt,name=AttachmentTotalHash,proto3" json:"AttachmentTotalHash,omitempty"`
-	BlockIdentify string	`protobuf:"bytes,17,opt,name=BlockIdentify,proto3" json:"BlockIdentify" tag:""`
-	Date string `protobuf:"bytes,18,opt,name=Date,proto3" json:"Date" tag:""`
+	BlockID 	  		string  `protobuf:"bytes,17,opt,name=BlockID,proto3" json:"BlockID,omitempty"`  //所属区块的唯一标识
 }
