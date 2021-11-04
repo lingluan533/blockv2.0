@@ -44,8 +44,9 @@ func AddTransactionBlockToTdengine(minuteTransactionBlock dataStruct.MinuteTrans
 	logger.Error("本次要插入数据条数：",len(minuteTransactionBlock.Transactions))
 	//logger.Error("sql语句：",str)
 	for _,data:=range minuteTransactionBlock.Transactions{
+		data.BlockID = minuteTransactionBlock.Header.KeyId
 		values := "('"+data.CreateTimestamp +"','"+data.EntityId+"','"+data.TransactionId+"','"+data.Initiator+"','"+data.Recipient+
-			"','"+strconv.FormatFloat(data.TxAmount,'E',-1,64)+"','"+data.DataType+"','"+data.ServiceType+"','"+data.Remark+"')"
+			"','"+strconv.FormatFloat(data.TxAmount,'E',-1,64)+"','"+data.DataType+"','"+data.ServiceType+"','"+data.Remark+"','"+data.BlockID+"')"
 		str = fmt.Sprintf("%s %s",str,values)
 	}
 	logger.Error("sql语句：",str)
@@ -78,9 +79,10 @@ func AddDataBlockToTdengine(minuteDataBlock dataStruct.MinuteDataBlock)(int64,er
 	logger.Error("本次要插入数据条数：",len(minuteDataBlock.DataReceipts))
 	//logger.Error("sql语句：",str)
 	for _,data:=range minuteDataBlock.DataReceipts{
+		data.BlockID = minuteDataBlock.Header.KeyId
 		values := "('"+data.CreateTimeStamp +"','"+data.EntityId+"','"+data.KeyId+"','"+strconv.FormatFloat(data.ReceiptValue,'E',-1,64)+"','"+data.Version+
 			"','"+data.UserName+"','"+data.OperationType+"','"+data.DataType+"','"+data.ServiceType+"','"+data.FileName+"','"+strconv.FormatFloat(data.FileSize,'E',-1,64)+"','"+data.FileHash+
-			"','"+data.Uri+"','"+data.ParentKeyId+"',"+"'a'"+",'"+data.AttachmentTotalHash+"')"
+			"','"+data.Uri+"','"+data.ParentKeyId+"',"+"'a'"+",'"+data.AttachmentTotalHash+"','"+data.BlockID+"')"
 		str = fmt.Sprintf("%s %s",str,values)
 	}
 	logger.Error("sql语句：",str)

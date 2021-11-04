@@ -19,7 +19,7 @@ common:
     debug_log_name: debug.log
     error_log_name: error.log
     log_level: info 
-    output_file: false
+    output_file: true
   cache_cluster: [redis1]
   ledger_name:
     node_credible:

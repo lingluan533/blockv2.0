@@ -21,7 +21,7 @@ type DataReceipt struct{
 	ParentKeyId         string   `json:"parentKeyId"`
 	AttachmentFileUris  []string `json:"attachmentFileUris"`
 	AttachmentTotalHash string   `json:"attachmentTotalHash"`
-
+	BlockID 	  		string   `json:"blockId"`  //所属区块的唯一标识
 
 }
 type MockDataReceipt struct {

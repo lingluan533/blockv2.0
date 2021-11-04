@@ -50,7 +50,7 @@ func ScanAllBlockHeaders(client *clientv3.Client){
 		return
 	}
 	for i:=1;i<=indexMinInt;i++{
-		logger.Infof("当前处理第%v个分钟块",i)
+		//logger.Infof("当前处理第%v个分钟块",i)
 		date := time.Now().Format("2006-01-02")
 		flag := date +":%:"+strconv.Itoa(i)
 		str := "select count(*) from "+globalconfig.Block.TDengineConfig.DBName+".blockheaders where  keyid like '" + flag+"';"
@@ -63,16 +63,16 @@ func ScanAllBlockHeaders(client *clientv3.Client){
 		for rows.Next(){
 			rows.Scan(&count)
 		}
-		logger.Infof("第%v个分钟的已存入%v个区块头",i,count)
+		//logger.Infof("第%v个分钟的已存入%v个区块头",i,count)
 		if count == 5 {
 			continue
 		}else{
 			//这个分钟的分钟块区块头少于五个时候，调用恢复分钟块的程序
 			err := ReloadMinblock(client,i,date)
 			if err !=nil {
-				logger.Errorf("恢复第%v个分钟的区块时出错",i)
+				//logger.Errorf("恢复第%v个分钟的区块时出错",i)
 			}else{
-				logger.Infof("恢复第%v个分钟的区块成功！",i)
+				//logger.Infof("恢复第%v个分钟的区块成功！",i)
 			}
 		}
 	}
@@ -244,9 +244,9 @@ func ScanLastBLockHeaders(client *clientv3.Client){
 	}else{//这个分钟的分钟块区块头少于五个时候，调用恢复分钟块的程序
 		err := ReloadMinblock(client,indexMinInt,date)
 		if err !=nil {
-			logger.Errorf("恢复第%v个分钟，类型为%v的区块时出错")
+			logger.Errorf("恢复第%v个分钟的区块时出错",indexMinInt)
 		}else{
-			logger.Infof("恢复第%v个分钟，类型为%v的区块成功！")
+			logger.Infof("恢复第%v个分钟的区块成功！",indexMinInt)
 		}}
 }
 func ScanReceivedBlockHeaders(client *clientv3.Client){

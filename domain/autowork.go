@@ -16,7 +16,7 @@ var (
 	verifyLastBlockheaderSpec = "0 * * * * ?"
 
 	//10分钟执行一次该时间应该接受的所有的区块头的验证
-	verifyAllBlockHeaderSpec = "0 */1 * * * ?"
+	verifyAllBlockHeaderSpec = "0 */5 * * * ?"
 )
 
 func AutoWorkMain(client *clientv3.Client) {

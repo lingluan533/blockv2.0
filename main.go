@@ -6,7 +6,7 @@ import (
 	"blockv2.0/domain"
 	"bufio"
 	"context"
-	"database/sql"
+	_ "database/sql"
 	"encoding/json"
 	"os"
 	"strconv"
@@ -101,10 +101,8 @@ func main() {
 					switch strs[1]{
 					//VIDEO and USER are receipt type
 					case VIDEO,USER:
-
 						addDataBlock(keyStr,strs,ev.Kv.Value)
 					case NODE,SENSOR,ACCESS:
-
 						addTxBlock(keyStr,strs,ev.Kv.Value)
 						default:
 					}
@@ -252,84 +250,12 @@ func addTxBlock(str string, keyStrs []string, block []byte) {
 				logger.Info("从区块文件反序列化成功：",MinuteTransactionBlockFromfile)
 				//插入tdengine数据库
 
-				AddTransactionBlockToTdengine(MinuteTransactionBlockFromfile)
+				domain.AddTransactionBlockToTdengine(MinuteTransactionBlockFromfile)
 			}
 		}
 	}
 }
 
-func AddTransactionBlockToTdengine(minuteTransactionBlock dataStruct.MinuteTransactionBlock)(int64,error) {
-	start := time.Now().UnixMilli()
-	logger.Error(minuteTransactionBlock.Transactions[0])
-	str := "insert into "+globalconfig.Block.TDengineConfig.DBName+".transactions values "
-	logger.Error("本次要插入数据条数：",len(minuteTransactionBlock.Transactions))
-	//logger.Error("sql语句：",str)
-	for _,data:=range minuteTransactionBlock.Transactions{
-		values := "('"+data.CreateTimestamp +"','"+data.EntityId+"','"+data.TransactionId+"','"+data.Initiator+"','"+data.Recipient+
-			"','"+strconv.FormatFloat(data.TxAmount,'E',-1,64)+"','"+data.DataType+"','"+data.ServiceType+"','"+data.Remark+"')"
-		str = fmt.Sprintf("%s %s",str,values)
-	}
-	logger.Error("sql语句：",str)
-	//res , err := db.Exec(str)
-	var db *sql.DB
-	url := "root:taosdata@/tcp(" + "localhost" + ":" + "6030" + ")/"
-	db, err := sql.Open("taosSql", url)
-	res , err := db.Exec(str)
-	defer db.Close()
-	if err!= nil{
-		logger.Warn("插入数据错误：",err)
-	}else{
-		fmt.Println("插入成功")
-	}
-	numOfaffected , err := res.RowsAffected()
-	if err!= nil{
-		logger.Warn("获取插入数目错误：",err)
-		return -1,err
-	}else {
-		fmt.Println("插入成功数量：",numOfaffected)
-	}
-	end := time.Now().UnixMilli()
-	logger.Errorf("time need:=%d毫秒",end - start)
-	return numOfaffected, nil
-}
-func AddDataBlockToTdengine(minuteDataBlock dataStruct.MinuteDataBlock)(int64,error){
-	start := time.Now().UnixMilli()
-	logger.Error(minuteDataBlock.DataReceipts[0])
-	globalconfig := config.Initialize()
-
-	str := "insert into "+globalconfig.Block.TDengineConfig.DBName+".datareceipts values "
-	logger.Error("本次要插入数据条数：",len(minuteDataBlock.DataReceipts))
-	//logger.Error("sql语句：",str)
-	for _,data:=range minuteDataBlock.DataReceipts{
-		values := "('"+data.CreateTimeStamp +"','"+data.EntityId+"','"+data.KeyId+"','"+strconv.FormatFloat(data.ReceiptValue,'E',-1,64)+"','"+data.Version+
-			"','"+data.UserName+"','"+data.OperationType+"','"+data.DataType+"','"+data.ServiceType+"','"+data.FileName+"','"+strconv.FormatFloat(data.FileSize,'E',-1,64)+"','"+data.FileHash+
-			"','"+data.Uri+"','"+data.ParentKeyId+"',"+"'a'"+",'"+data.AttachmentTotalHash+"')"
-		str = fmt.Sprintf("%s %s",str,values)
-	}
-	logger.Error("sql语句：",str)
-	//res , err := db.Exec(str)
-	var db *sql.DB
-	url := "root:taosdata@/tcp(" + "localhost" + ":" + "6030" + ")/"
-	db, err := sql.Open("taosSql", url)
-	res , err := db.Exec(str)
-	defer db.Close()
-	if err!= nil{
-		logger.Warn("插入数据错误：",err)
-	}else{
-		fmt.Println("插入成功")
-	}
-	numOfaffected , err := res.RowsAffected()
-	if err!= nil{
-		logger.Warn("获取插入数目错误：",err)
-		return -1,err
-	}else {
-		fmt.Println("插入成功数量：",numOfaffected)
-	}
-	end := time.Now().UnixMilli()
-	logger.Errorf("time need:=%d毫秒",end - start)
-
-	return numOfaffected, nil
-}
 //处理添加存证记录的逻辑
 func addDataBlock(keyStr string,keyStrs []string, block[]byte) {
 	//如果key的组成部分有三部分 说明检测到的是一个创世块
@@ -408,7 +334,7 @@ func addDataBlock(keyStr string,keyStrs []string, block[]byte) {
 			logger.Info("从区块文件反序列化成功：",minuteBlockFromfile)
 			//插入tdengine数据库
 
-				AddDataBlockToTdengine(minuteBlockFromfile)
+				domain.AddDataBlockToTdengine(minuteBlockFromfile)
 			}
 		}
 	}
